@@ -33,7 +33,7 @@
     --foreground: #ededed;
   }
 }
-.app.container {
+.app {
   display: flex;
   min-height: 100vh;
   background-color: var(--bg-light);
@@ -42,7 +42,7 @@
   background-color: var(--sidebar-bg);
   color: var(--white);
   width: 260px; /*${isSidebarOpen ? '260px', '80'}*/
-  transition: width 0.3 ease;
+  transition: width 0.3s ease;
   display: flex;
   flex-direction: column;
 }
@@ -167,7 +167,7 @@
   color: var(--text-main);
   font-size: 18px;
 }
-@media (max-widht: 1024px) {
+@media (max-width: 1024px) {
   .charts-grid {
     grid-template-columns: 1fr;
   }
