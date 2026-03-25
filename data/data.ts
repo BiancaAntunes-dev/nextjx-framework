@@ -1,4 +1,4 @@
-// Dados Simulados 
+// Dados Simulados dos gráficos
 export const dataProducao = [
     {
         name: "Seg", prod: 4000, meta: 2400
@@ -26,7 +26,7 @@ export const dataStatus = [
     { name: "Paradas", value: 100}
 ]
 
-export const COLORS = ['#10b981', '#f59e0b', '#ef4444']
+export const COLORS = ['#10b981', '#f59e0b', '#ef4444'] //cor do gráfico de pizza
 
 export const maquinas = [
     { id: 1, nome: "Prensa A2", consumo: 120, status: "normal"},
