@@ -2,19 +2,48 @@
 import { Activity, LayoutDashboard,Users ,Search,Bell, CheckCircle2, AlertCircle } from "lucide-react";
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell} from 'recharts';
 import {COLORS, dataProducao, dataStatus, maquinas} from '../data/data'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
 /*Aqui é a onde estou guardando o que o usuário está digitando */
   const [busca, setBusca ] = useState('') 
+  /*Estado para criar efeito de loading  */
+  const [loading, setLoading] = useState(false);
 
-  const maquinasFiltradas = filtrarMaquinasPorNome();
+  /*Estados para armazenar os dados das máquinas */
+  const [resultado, setResultado] = useState([]);
 
+  /*Exibe quantas vezes a busca foi alterada */
+  const [count, setCount] = useState(0);
+
+  const maquinasFiltradas = filtrarMaquinasPorNome(); 
 
   function filtrarMaquinasPorNome(){
     return maquinas.filter((item) => item.nome.toLocaleLowerCase().includes(busca.toLocaleLowerCase()))
   }
-  console.log(maquinasFiltradas)
+
+/* UseEffect para o filtro */
+  useEffect(() => {
+    setLoading(true);
+    if (busca !== ''){
+      setCount((prevCount) => prevCount +1);
+    }
+
+    const timeout = setTimeout(() => {
+      const dados_filtrados = filtrarMaquinasPorNome()
+      setResultado(dados_filtrados)
+      setLoading(false)
+    }, 2000)
+    return () => clearTimeout(timeout)
+  }, [busca])
+
+/*UseEfect para o contador  */
+useEffect(() => {
+  if (count > 0) {
+    console.log(`A busca foi alterada: ${count} vezes`);
+   }
+},[count])
+
 
   return (
     <div className="app">
@@ -164,6 +193,10 @@ export default function Home() {
 
                 </div>
               </div>
+              {loading && <p>Buscando Dados...</p>}
+              {!loading && resultado.length === 0 && (
+                <p>Nenhum processo encontrado</p>
+              )}
            </div>
         </div>
       </main>
